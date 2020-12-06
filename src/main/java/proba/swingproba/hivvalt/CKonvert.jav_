@@ -1,0 +1,300 @@
+// CKonvert.java
+// CKonvert : bekeri a konvertalando elso ill. utolso file sorszamat
+//                 valamint a file-okat tartalmazo konyvtarat
+
+import java.io.* ;
+
+/*
+ * BufferedReader in
+ *   = new BufferedReader(new FileReader("foo.in"));
+*/
+
+class CInFile extends BufferedReader
+{
+  public CInFile( String sFilename) throws FileNotFoundException
+  {
+    super( new FileReader( sFilename)) ;
+  }
+  
+  public CInFile( File fFile) throws FileNotFoundException
+  {
+    this( fFile.getPath()) ;
+  }
+}
+
+class COutFile extends BufferedWriter
+{
+  public COutFile( String filename) throws IOException
+  {
+    super( new BufferedWriter( new FileWriter(filename))) ;
+  }
+
+  public COutFile( File file) throws IOException
+  {
+    this( file.getPath()) ;
+  }
+}
+
+public class CKonvert
+{
+
+  // Mivel nem tudom, hogy lehetne fv-nek ugy String-et atadni,
+  // hogy a valtoztatas vissza is jojjon
+  String m_sEgyInSor  = new String() ;
+  String m_sEgyOutSor = new String() ;
+
+  final String m_sFileTipTmb[] = {
+                                   "e.htm",
+                                   "te.htm",
+                                   "o.htm",
+                                   "to.htm",
+                                   "pr.htm"
+                                 } ;
+
+  final String m_sKerMintaTmb[] = {
+                                    "ITE\">Previous",
+                                    "ITE\">Next",
+                                    "ANG\">Profile",
+                                    "ITE\"><",
+                                    "ETE",
+                                    "ITG",
+                                    "ETG"
+                                  } ;
+
+//                                                  public static Integer valueOf(String s) throws NumberFormatException
+//                                                  public static int parseInt(String s[, int radix]) 
+  public void Konvertal( String sEleresiUt, int nTol, int nIg) throws IOException
+  {
+    int nKezdIdx ;
+    int nVegIdx  ;
+    int i        ;
+    int nFileTipIdx    ;
+    int nMaxFileTipIdx ;
+    int nKerMintaIdx   ;
+
+    String sFileSeparator ;
+    String sTeljFilenev   ;
+
+    boolean bVoltCsere ;
+
+    // Buffered input file
+    CInFile  fInputFile ;
+    COutFile fOutFile   ;
+
+
+    sFileSeparator = System.getProperty( "file.separator") ;
+    nMaxFileTipIdx = m_sFileTipTmb.length ;
+
+//System.out.println( "nMaxFileTipIdx :" + nMaxFileTipIdx) ;
+
+    for ( i = nTol ; i <= nIg ; i++ )
+    {
+      for ( nFileTipIdx = 0 ; nFileTipIdx < nMaxFileTipIdx ; nFileTipIdx++ )
+      {
+//System.out.println( "nFileTipIdx :" + nFileTipIdx) ;
+
+        sTeljFilenev = sEleresiUt + sFileSeparator + Integer.toString( i) + m_sFileTipTmb[nFileTipIdx] ;
+
+System.out.println( "fInputFile : " + sTeljFilenev) ;
+
+        try
+        {
+          fInputFile = new CInFile(  sTeljFilenev) ;
+          fOutFile   = new COutFile( sTeljFilenev + "l" ) ;
+        }
+        catch ( IOException cIOException)
+        {
+          System.out.println( "IOException " + cIOException.getMessage()) ;
+
+          // Nem baj, ha nem talalta a kerdeses file-t, menjen a kovetkezore...
+          continue ;
+        }
+
+        m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+
+        sorok :
+        while( m_sEgyInSor != null )
+        {
+          // Az elso file-nal nincs 'Previous stage'
+          if ( i > 1)
+          {
+System.out.println( "prev") ;
+            // <a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=100&Language=ANG&StandingType=ITE">Previous
+            // stage</a>
+            // http es ITE">Previous kozott ... idezojel kell : href="METCLUB/KIINDUL.HTML"
+            // Az utolso file-nal nincs ANG">Profile mindig van
+//System.out.println( "CKonvert::Konvertal i p : " + i) ;
+            nKezdIdx = i - 1 ;
+System.out.println( "Csere elott nEtapSzam : " + nKezdIdx) ;
+
+            bVoltCsere = Csere( m_sKerMintaTmb[0], nKezdIdx, nFileTipIdx) ;
+/*
+if ( bVoltCsere == true )
+{
+System.out.println( "CKonvert::Konvertal m_sEgyOutSor p : " + m_sEgyOutSor) ;
+}
+*/
+            Kiir( bVoltCsere, fOutFile) ;
+
+            if ( bVoltCsere == true )
+            {
+              m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+              continue sorok ;
+            }
+          }
+
+          // Az utolso file-nal nincs ITE">Next stage
+          if ( i < nIg )
+          {
+System.out.println( "next") ;
+            // Az utolso file-nal nincs ANG">Profile mindig van
+            nVegIdx = i + 1 ;
+System.out.println( "Csere elott nEtapSzam : " + nVegIdx) ;
+            bVoltCsere = Csere( m_sKerMintaTmb[1], nVegIdx, nFileTipIdx) ;
+/*
+if ( bVoltCsere == true )
+{
+System.out.println( "CKonvert::Konvertal m_sEgyOutSor n : " + m_sEgyOutSor) ;
+}
+*/
+            Kiir( bVoltCsere, fOutFile) ;
+
+            if ( bVoltCsere == true )
+            {
+              m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+              continue sorok ;
+            }
+          }
+
+          // ANG">Profile mindig van
+//System.out.println( "pr") ;
+          bVoltCsere = Csere( m_sKerMintaTmb[2], i, 4) ;
+/*
+if ( bVoltCsere == true )
+{
+System.out.println( "CKonvert::Konvertal m_sEgyOutSor o : " + m_sEgyOutSor) ;
+}
+*/
+          Kiir( bVoltCsere, fOutFile) ;
+
+          if ( bVoltCsere == true )
+          {
+            m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+            continue sorok ;
+          }
+
+          // *pr.htm-file-ban a tobbi nincs mar
+
+          for ( nKerMintaIdx = 3 ; nKerMintaIdx < 7 ; nKerMintaIdx++ )
+          {                                                                             // nFileTipIdx
+System.out.println( "-") ;
+            bVoltCsere = Csere( m_sKerMintaTmb[nKerMintaIdx], i, nKerMintaIdx - 3) ;
+/*
+if ( bVoltCsere == true )
+{
+System.out.println( "CKonvert::Konvertal m_sEgyOutSor e : " + m_sEgyOutSor) ;
+}
+*/
+            Kiir( bVoltCsere, fOutFile) ;
+
+            if ( bVoltCsere == true )
+            {
+              m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+              continue sorok ;
+            }
+          }
+
+//System.out.println( "write : m_sEgyInSor" + m_sEgyInSor) ;
+        try
+        {
+          fOutFile.write( m_sEgyInSor + "\n", 0, m_sEgyInSor.length() + 1) ;
+        }
+        catch  ( IOException cIOException)
+        {
+          System.out.println( "IOException " + cIOException.getMessage()) ;
+
+          continue ;
+        }
+
+          m_sEgyInSor = fInputFile.readLine() ;
+//System.out.println( ">>" + m_sEgyInSor) ;
+        }
+/*
+if ( m_sEgyInSor == null )
+{
+System.out.println( "m_sEgyOutSor == null") ;
+}
+else
+{
+System.out.println( "m_sEgyOutSor != null") ;
+}
+*/
+        fInputFile.close() ;
+        fOutFile.close() ;
+      }
+    }
+  }
+
+  // m_sEgyInSor, m_sEgyOutSor -t imlicit modositja
+  boolean Csere( String sMinta, int nEtapSzam, int nFileTipIdx)
+  {
+    int nKezdIdx ;
+    int nVegIdx  ;
+/*
+System.out.println( "Csere BEGIN") ;
+System.out.println( "Csere   sMinta    : " + sMinta) ;
+System.out.println( "Csere   nEtapSzam : " + nEtapSzam) ;
+System.out.println( "Csere   FileTipus : " + m_sFileTipTmb[nFileTipIdx]) ;
+*/
+    // Az utolso file-nal nincs ANG">Profile mindig van
+    nKezdIdx = m_sEgyInSor.indexOf( "http") ;
+    nVegIdx  = m_sEgyInSor.indexOf( sMinta) ;
+
+    // Modositando sort talalt
+    if ( nKezdIdx > 0 && nVegIdx > 0 )
+    {
+System.out.println( "Csere   sMinta    : " + sMinta) ;
+System.out.println( "Csere   nEtapSzam : " + nEtapSzam) ;
+System.out.println( "Csere   FileTipus : " + m_sFileTipTmb[nFileTipIdx]) ;
+      // A sor eleje valtozatlan
+      m_sEgyOutSor = m_sEgyInSor.substring( 0, nKezdIdx) ;
+//System.out.println( "CKonvert::Csere m_sEgyOutSor:" + m_sEgyOutSor) ;
+      // A hivatkozott filenev
+      m_sEgyOutSor = m_sEgyOutSor + Integer.toString( nEtapSzam) + m_sFileTipTmb[nFileTipIdx] + "l\"" ;
+//System.out.println( "CKonvert::Csere m_sEgyOutSor:" + m_sEgyOutSor) ;
+      // A sor vege valtozatlan
+      m_sEgyOutSor = m_sEgyOutSor + m_sEgyInSor.substring( nVegIdx + 4) ; // 3 ?
+System.out.println( "Csere m_sEgyOutSor:" + m_sEgyOutSor) ;
+
+//System.out.println( "CKonvert::Csere END (true)") ;
+      return true ;
+    }
+
+//System.out.println( "CKonvert::Csere END (false)") ;
+    return false ;
+  }
+
+  void Kiir( boolean bVoltCsere, COutFile fOutFile) throws IOException
+  {
+//System.out.println( "CKonvert::Kiir BEGIN") ;
+
+    if ( bVoltCsere == true )
+    {
+//System.out.println( "CKonvert::Kiir m_sEgyOutSor:" + m_sEgyOutSor) ;
+
+      fOutFile.write( m_sEgyOutSor + "\n", 0, m_sEgyOutSor.length() + 1) ;
+    }
+
+//    else
+//    {
+//      fOutFile.write( m_sEgyInSor + "\n", 0, m_sEgyInSor.length() + 1) ;
+//    }
+
+//System.out.println( "CKonvert::Kiir END") ;
+  }
+}

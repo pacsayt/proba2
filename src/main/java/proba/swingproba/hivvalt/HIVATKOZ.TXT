@@ -1,0 +1,57 @@
+2e.htm
+~~~~~~
+
+<td ALIGN=CENTER VALIGN=CENTER><font face="helvetica, geneva"><font size=-2><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=100&Language=ANG&StandingType=ITE">Previous
+stage</a></font></font></td>
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<td ALIGN=CENTER VALIGN=CENTER><font face="helvetica, geneva"><font size=-2><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=300&Language=ANG&StandingType=ITE">Next
+stage</a></font></font></td>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<td ALIGN=CENTER VALIGN=CENTER><font face="helvetica, geneva"><font size=-2><a href="http://www.letour.com/2000/us/profil.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG">Profile</a></font></font></td>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Individual   ITE
+Points       IPE
+Climber      IME
+Teams        ETE
+Combativity  ICE
+Youth        IJE
+
+Stage
+<td ALIGN=CENTER VALIGN=CENTER><img SRC="rouge.jpg" BORDER=0 ></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IPE"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IME"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=ETE"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=ICE"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IJE"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+Individual   ITG
+Points       IPG
+Climber      IMG
+Teams        ETG
+Combativity  ICG
+Youth        IJG
+
+Overall
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=ITG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IPG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IMG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=ETG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=ICG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+<td ALIGN=CENTER VALIGN=CENTER><a href="http://www.letour.com/2000/us/classements.oft?service=RaceServer&RaceType=TDF&RaceYear=2000&StageNumber=200&Language=ANG&StandingType=IJG"><img SRC="vert.jpg" BORDER=0 ></a></td>
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
