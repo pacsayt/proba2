@@ -17,7 +17,7 @@ public class LambdaScope
     // int x= 0; // pt++ : variable \/ is already defined in the scope
     int y = 1;
 
-    Function<String,String> func1 = x -> {System.out.println( x + y + privateInt + privateStaticInt); return x; };
+    Function<String,String> func1 = x -> {System.out.println( " x=" + x + " y=" +  y + " privateInt=" +  privateInt + " privateStaticInt=" + privateStaticInt); return x; };
     System.out.println( func1.apply("scope2 ")) ;
   }
 

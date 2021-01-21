@@ -1,4 +1,4 @@
-package funct;
+package proba.funct;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,5 +15,4 @@ public class GanArrayRef
 
     System.out.println( asList.apply( new String[]{ "a","b","c"}));
   }
-
 }
